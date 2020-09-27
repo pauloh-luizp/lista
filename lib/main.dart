@@ -79,16 +79,16 @@ class _MainAppState extends State<MainApp> {
                       _ordenarLista();
                     });
                   },
-                ),
-                subtitle: SpinnerInput(
-                  spinnerValue: spinner,
-                  //                  minValue: 0,
-                  //                  maxValue: 200,
-                  onChange: (newValue) {
-                    setState(() {
-                      spinner = newValue;
-                    });
-                  },
+                  subtitle: SpinnerInput(
+                    spinnerValue: spinner,
+                    //                  minValue: 0,
+                    //                  maxValue: 200,
+                    onChange: (newValue) {
+                      setState(() {
+                        spinner = newValue;
+                      });
+                    },
+                  ),
                 ),
               ),
           ],
