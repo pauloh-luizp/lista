@@ -80,7 +80,7 @@ class _MainAppState extends State<MainApp> {
                     });
                   },
                 ),
-                child: SpinnerInput(
+                subtitle: SpinnerInput(
                   spinnerValue: spinner,
                   //                  minValue: 0,
                   //                  maxValue: 200,
