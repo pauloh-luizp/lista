@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:spinner_input/spinner_input.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -22,6 +23,7 @@ class _MainAppState extends State<MainApp> {
   var _itemController = TextEditingController();
   List<Item> _list = new List<Item>();
   ItemRepository repository = new ItemRepository();
+  double spinner = 0;
 
   @override
   void initState() {
@@ -46,38 +48,49 @@ class _MainAppState extends State<MainApp> {
           children: [
             for (int i = 0; i < _list.length; i++)
               ListTile(
-                  title: CheckboxListTile(
-                controlAffinity: ListTileControlAffinity.leading,
-                title: _list[i].concluido
-                    ? Text(
-                        _list[i].nome,
-                        style:
-                            TextStyle(decoration: TextDecoration.lineThrough),
-                      )
-                    : Text(_list[i].nome),
-                value: _list[i].concluido,
-                secondary: IconButton(
-                  icon: Icon(
-                    Icons.delete,
-                    size: 20.0,
-                    color: Colors.red[900],
+                title: CheckboxListTile(
+                  controlAffinity: ListTileControlAffinity.leading,
+                  title: _list[i].concluido
+                      ? Text(
+                          _list[i].nome,
+                          style:
+                              TextStyle(decoration: TextDecoration.lineThrough),
+                        )
+                      : Text(_list[i].nome),
+                  value: _list[i].concluido,
+                  secondary: IconButton(
+                    icon: Icon(
+                      Icons.delete,
+                      size: 20.0,
+                      color: Colors.red[900],
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _list.removeAt(i);
+                        _updateLista();
+                        _ordenarLista();
+                      });
+                    },
                   ),
-                  onPressed: () {
+                  onChanged: (c) {
                     setState(() {
-                      _list.removeAt(i);
+                      _list[i].concluido = c;
                       _updateLista();
                       _ordenarLista();
                     });
                   },
                 ),
-                onChanged: (c) {
-                  setState(() {
-                    _list[i].concluido = c;
-                    _updateLista();
-                    _ordenarLista();
-                  });
-                },
-              )),
+                child: SpinnerInput(
+                  spinnerValue: spinner,
+                  //                  minValue: 0,
+                  //                  maxValue: 200,
+                  onChange: (newValue) {
+                    setState(() {
+                      spinner = newValue;
+                    });
+                  },
+                ),
+              ),
           ],
         ),
       ),
