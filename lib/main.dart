@@ -39,7 +39,8 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Lista de Compras'), centerTitle: true),
+      appBar:
+          AppBar(title: Text('O que que tem que comprar?'), centerTitle: true),
       body: Scrollbar(
         child: ListView(
           children: [
